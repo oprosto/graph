@@ -23,12 +23,17 @@ public class VertexCreator : MonoBehaviour
         position = InputCoords.GetCoords();
         //position = Vector3.zero;
 
-        Vertex vertex = new Vertex(name, position, value);
+        
+        //Vertex vertex = ;
+        //vertex.Initialize(name, position, value);
+        //Vertex vertex = new Vertex(name, position, value);
         //vertex.SetName(name);
         //vertex.SetPosition(position);
         //vertex.SetValue(value);
 
         GameObject vertexObj = Instantiate(vertexPrefab);
+        Vertex vertex = vertexObj.AddComponent<Vertex>();
+        vertex.Initialize(name, position, value);
         AllEvents.OnVertexCreated.Invoke(vertexObj, vertex);
     }
 
