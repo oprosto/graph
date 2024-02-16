@@ -14,9 +14,9 @@ public class VertexStatementDisplay : MonoBehaviour
     {
         vertex.transform.position = vector;
     }
-    private void VertexCreated(GameObject vertexObj, Vertex vertex) 
+    private void VertexCreated(GameObject vertex) 
     {
-        vertexObj.transform.position = vertex.GetPosition();
+        vertex.transform.position = vertex.GetComponent<Vertex>().GetPosition();
     }
     
 

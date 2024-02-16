@@ -18,7 +18,7 @@ public class VertexCreator : MonoBehaviour
         if (double.TryParse(ValueField.text, out value))        
             Debug.Log("Create Vertex. Value was not parsed!");
         
-        name = NameField.text;
+        name = NameField.text.Substring(0, NameField.text.Length - 1);
 
         position = InputCoords.GetCoords();
         //position = Vector3.zero;
@@ -34,7 +34,7 @@ public class VertexCreator : MonoBehaviour
         GameObject vertexObj = Instantiate(vertexPrefab);
         Vertex vertex = vertexObj.AddComponent<Vertex>();
         vertex.Initialize(name, position, value);
-        AllEvents.OnVertexCreated.Invoke(vertexObj, vertex);
+        AllEvents.OnVertexCreated.Invoke(vertexObj);
     }
 
 }

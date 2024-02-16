@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
@@ -5,11 +6,11 @@ using UnityEngine.Events;
 
 public class VertexDataBase : MonoBehaviour
 {
-    protected static int amountOfVertex = 0;
+    private static int amountOfVertex = 0;
 
-    //protected static List<Vertex> vertices = new List<Vertex>();
+    [NonSerialized] public static List<GameObject> vertices = new List<GameObject>();
 
-    public static Dictionary<Vertex, GameObject> vertices = new Dictionary<Vertex, GameObject>();
+    //public static Dictionary<Vertex, GameObject> vertices = new Dictionary<Vertex, GameObject>();
     public static int GetAmountOfVertex() => amountOfVertex;
 
     void Awake()
@@ -18,12 +19,12 @@ public class VertexDataBase : MonoBehaviour
         AllEvents.OnVertexDestroy.AddListener(DeleteVertex);
     }
 
-    private static void CreateVertex(GameObject vertexObj_ ,Vertex vertex_)
+    private static void CreateVertex(GameObject vertex)
     {
-        vertices.Add(vertex_ ,vertexObj_);
+        vertices.Add(vertex);
         amountOfVertex++;
     }
-    private static void DeleteVertex(Vertex vertex)
+    private static void DeleteVertex(GameObject vertex)
     {
         vertices.Remove(vertex);
     }

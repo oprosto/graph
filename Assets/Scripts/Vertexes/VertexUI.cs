@@ -14,16 +14,19 @@ public class VertexUI : MonoBehaviour
     }
     private void SetName(GameObject vertex,string _name) 
     {
-        vertex.name = _name;
+        vertex.GetComponent<Vertex>().SetName(_name);// = _name;
     }
-    private void VertexCreated(GameObject vertexObj, Vertex vertex)
+    private void VertexCreated(GameObject vertex)
     {
-        vertexObj.GetComponentInChildren<TextMeshPro>().text = vertex.GetName();
+        vertex.GetComponentInChildren<TextMeshPro>().text = vertex.GetComponent<Vertex>().GetName();
     }
-    private void DisplayMenuCurrentState(GameObject vertexObj, Vertex vertex) 
+    private void DisplayMenuCurrentState(GameObject vertex) 
     {
-        nameField.text = vertex.GetName();
-        valueField.text = vertex.GetValue().ToString();
+        if (vertex == null)
+            return;
+        Vertex vertexInfo = vertex.GetComponent<Vertex>(); 
+        nameField.text = vertexInfo.GetName();
+        valueField.text = vertexInfo.GetValue().ToString();
     }
 
 }

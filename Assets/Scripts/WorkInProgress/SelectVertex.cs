@@ -5,18 +5,18 @@ using UnityEngine.EventSystems;
 
 public class SelectVertex : MonoBehaviour, IPointerClickHandler
 {
-    Vertex vertex;
-    GameObject vertexObj;
+    //Vertex vertex;
+    private GameObject vertex;
     
     public void OnPointerClick(PointerEventData eventData)
-    {        
-        vertex = GetComponent<Vertex>();
-        vertexObj = GetComponent<GameObject>();
+    {
+        //vertex = GetComponent<Vertex>();
+        vertex = gameObject;
         if (vertex == null)
         {
             Debug.Log("Vertex is not registered");
             return;
         }
-        AllEvents.OnVertexSelect.Invoke(vertexObj, vertex);
+        AllEvents.OnVertexSelect.Invoke(vertex);
     }
 }

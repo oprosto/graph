@@ -15,15 +15,22 @@ public class Select : MonoBehaviour
     {
         AllEvents.OnVertexSelect.AddListener(OnVertexSelected);
         AllEvents.OnCoordinatesSelect.AddListener(OnCoordinatesSelected);
+        AllEvents.OnVertexDestroy.AddListener(RemoveSelection);
     }
-    private void OnVertexSelected(Vertex vertex)
+    private void OnVertexSelected(GameObject vertex)
     {
-        CoordinatesMarker.SetActive(false);
+        if (vertex == null)
+            return;
+        CoordinatesMarker.SetActive(false); 
         VertexMarker.SetActive(true);
 
-        Vector3 vertexCord = vertex.GetPosition();
+        Vector3 vertexCord = vertex.GetComponent<Vertex>().GetPosition();
         Tools.markToVertexLayout(ref vertexCord);
         VertexMarker.transform.position = vertexCord;
+    }
+    private void RemoveSelection(GameObject vertex) 
+    {
+        VertexMarker.SetActive(false);
     }
     private void OnEdgeSelected() 
     {
@@ -36,6 +43,7 @@ public class Select : MonoBehaviour
 
 
         CoordinatesMarker.transform.position = coords;
+        AllEvents.OnVertexSelect.Invoke(null);
         //Temp
         string temp;
         temp = "X: " + coords.x.ToString() + " Y: " + coords.y.ToString();
