@@ -7,7 +7,6 @@ public class VertexStatementDisplay : MonoBehaviour
 {
     void Awake()
     {
-        Debug.Log("I AWAKE! 3");
         AllEvents.OnPositionChanged.AddListener(SetPosition);
         AllEvents.OnVertexCreated.AddListener(VertexCreated);
     }

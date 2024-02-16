@@ -14,14 +14,18 @@ public class VertexDataBase : MonoBehaviour
 
     void Awake()
     {
-        Debug.Log("I AWAKE! 2");
         AllEvents.OnVertexCreated.AddListener(CreateVertex);
+        AllEvents.OnVertexDestroy.AddListener(DeleteVertex);
     }
 
     private static void CreateVertex(GameObject vertexObj_ ,Vertex vertex_)
     {
         vertices.Add(vertex_ ,vertexObj_);
         amountOfVertex++;
+    }
+    private static void DeleteVertex(Vertex vertex)
+    {
+        vertices.Remove(vertex);
     }
 
 }
