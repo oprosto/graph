@@ -26,4 +26,5 @@ public class Edge : MonoBehaviour
         _value = value;
         _isDirected = isDirected;    
     }
+
 }

@@ -25,7 +25,7 @@ public class Select : MonoBehaviour
         VertexMarker.SetActive(true);
 
         Vector3 vertexCord = vertex.GetComponent<Vertex>().GetPosition();
-        Tools.markToVertexLayout(ref vertexCord);
+        Tools.toMarkLayer(ref vertexCord);
         VertexMarker.transform.position = vertexCord;
     }
     private void RemoveSelection(GameObject vertex) 

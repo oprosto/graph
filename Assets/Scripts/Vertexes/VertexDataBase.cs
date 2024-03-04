@@ -10,10 +10,11 @@ public class VertexDataBase : MonoBehaviour
 
     [NonSerialized] public static List<GameObject> vertices = new List<GameObject>();
 
+
     //public static Dictionary<Vertex, GameObject> vertices = new Dictionary<Vertex, GameObject>();
     public static int GetAmountOfVertex() => amountOfVertex;
 
-    void Awake()
+    private void Awake()
     {
         AllEvents.OnVertexCreated.AddListener(CreateVertex);
         AllEvents.OnVertexDestroy.AddListener(DeleteVertex);

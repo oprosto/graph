@@ -4,13 +4,23 @@ using UnityEngine;
 
 public class Tools : MonoBehaviour
 {
-    private static float offset = 0.5f;
+    private static float _markLayer = 0.5f;
+    private static float _vertexLayer = 1.0f;
+    private static float _edgeLayer = 1.5f;
     public static void to2D(ref Vector3 vector) 
     {
         vector.z = 0;
     }
-    public static void markToVertexLayout(ref Vector3 vector)
+    public static void toMarkLayer(ref Vector3 vector)
     {
-        vector.z += offset;
+        vector.z = _markLayer;
+    }
+    public static void toVertexLayer(ref Vector3 vector)
+    {
+        vector.z = _vertexLayer;
+    }
+    public static void toEdgeLayer(ref Vector3 vector)
+    {
+        vector.z = _edgeLayer;
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VertexDestroyer : MonoBehaviour
+public class VertexDestroyer: MonoBehaviour
 {
     private GameObject lastSelectedVertexObj = null;
     //private Vertex lastSelectedVertex = null;

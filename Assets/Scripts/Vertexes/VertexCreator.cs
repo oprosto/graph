@@ -32,7 +32,7 @@ public class VertexCreator : MonoBehaviour
         //vertex.SetValue(value);
 
         GameObject vertexObj = Instantiate(vertexPrefab);
-        Vertex vertex = vertexObj.AddComponent<Vertex>();
+        Vertex vertex = vertexObj.GetComponent<Vertex>();
         vertex.Initialize(name, position, value);
         AllEvents.OnVertexCreated.Invoke(vertexObj);
     }
