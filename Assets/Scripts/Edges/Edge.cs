@@ -8,11 +8,15 @@ public class Edge : MonoBehaviour
     private Vertex _end;
     private double _value;    
     private bool _isDirected;
+    private int _id;
+
+    private static int _globalId = 0;
 
     public double GetValue() => _value;
     public Vertex GetStartVertex() => _start;
     public Vertex GetEndVertex() => _end;
     public bool IsDirected() => _isDirected;
+    public int GetId() => _id;
 
     public void SetValue(double value) => _value = value;
     public void SetStartVertex(Vertex vertex) => _start = vertex;
@@ -24,7 +28,9 @@ public class Edge : MonoBehaviour
         _start = start;
         _end = end;
         _value = value;
-        _isDirected = isDirected;    
+        _isDirected = isDirected;
+        _id = _globalId;
+        _globalId++;
     }
 
 }

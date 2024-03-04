@@ -20,6 +20,7 @@ public class AllEvents
     public static UnityEvent<Vector3> OnCoordinatesSelect = new UnityEvent<Vector3>();
 
     public static UnityEvent<GameObject> OnEdgeCreated = new UnityEvent<GameObject>();
+    public static UnityEvent<GameObject> OnEdgeDestroy = new UnityEvent<GameObject>();
 
     public static UnityEvent OnBackgroundClick = new UnityEvent();
 }

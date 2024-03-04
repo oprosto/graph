@@ -11,6 +11,9 @@ public class Vertex : MonoBehaviour
     private string _name;
     private Vector3 _position;
     private double _value;
+    private int _id;
+
+    private static int _globalId = 0;
     
     //public Vertex() 
     //{
@@ -45,6 +48,8 @@ public class Vertex : MonoBehaviour
             _name = name;
         _position = position;
         _value = value;
+        _id = _globalId;
+        _globalId++;
     }
 
     public void SetName(string name) => _name = name;
@@ -54,7 +59,7 @@ public class Vertex : MonoBehaviour
     public string GetName() => _name;
     public Vector3 GetPosition() => _position;
     public double GetValue() => _value;
-
+    public int GetId() => _id;
 
 
 
