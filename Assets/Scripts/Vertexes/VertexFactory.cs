@@ -2,15 +2,15 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class VertexCreator : MonoBehaviour
+public class VertexFactory : MonoBehaviour
 {
     [SerializeField] private TMP_Text NameField, ValueField;
 
     [SerializeField] private GameObject vertexPrefab;
 
-    public void CreateVertex()
+
+    public void Create()
     {
-        //Vertex vertex = new Vertex();
         double value;
         string name;
         Vector3 position;
@@ -21,20 +21,17 @@ public class VertexCreator : MonoBehaviour
         name = NameField.text.Substring(0, NameField.text.Length - 1);
 
         position = InputCoords.GetCoords();
-        //position = Vector3.zero;
-
-        
-        //Vertex vertex = ;
-        //vertex.Initialize(name, position, value);
-        //Vertex vertex = new Vertex(name, position, value);
-        //vertex.SetName(name);
-        //vertex.SetPosition(position);
-        //vertex.SetValue(value);
-
         GameObject vertexObj = Instantiate(vertexPrefab);
         Vertex vertex = vertexObj.GetComponent<Vertex>();
         vertex.Initialize(name, position, value);
         AllEvents.OnVertexCreated.Invoke(vertexObj);
     }
-
+    /*
+    public void Remove(GameObject item) 
+    {
+        AllEvents.OnVertexRemoved.Invoke(item);
+        Destroy(item);
+        AllEvents.OnDeselect.Invoke();
+    }
+    */
 }

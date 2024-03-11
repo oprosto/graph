@@ -13,14 +13,15 @@ public class AllEvents
     public static UnityEvent<GameObject, double> OnEdgeValueChanged = new UnityEvent<GameObject, double>();
 
     public static UnityEvent<GameObject> OnVertexCreated = new UnityEvent<GameObject>();
-    public static UnityEvent<GameObject> OnVertexDestroy = new UnityEvent<GameObject>();
+    public static UnityEvent<GameObject> OnVertexRemoved = new UnityEvent<GameObject>();
 
     public static UnityEvent<GameObject> OnVertexSelect = new UnityEvent<GameObject>();    
     public static UnityEvent<GameObject> OnEdgeSelect = new UnityEvent<GameObject>();
     public static UnityEvent<Vector3> OnCoordinatesSelect = new UnityEvent<Vector3>();
+    public static UnityEvent OnDeselect = new UnityEvent();
 
     public static UnityEvent<GameObject> OnEdgeCreated = new UnityEvent<GameObject>();
-    public static UnityEvent<GameObject> OnEdgeDestroy = new UnityEvent<GameObject>();
+    public static UnityEvent<GameObject> OnEdgeRemoved = new UnityEvent<GameObject>();
 
     public static UnityEvent OnBackgroundClick = new UnityEvent();
 }

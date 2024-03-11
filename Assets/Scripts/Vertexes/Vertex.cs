@@ -2,11 +2,12 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Vertex : MonoBehaviour
+/*[RequireComponent(typeof(VertexUI))]
+[RequireComponent (typeof(VertexStatementDisplay))]*/
+public class Vertex : MonoBehaviour, ISelectable, IRemovable
 {
-    //public string name { get; set; }
-    //public Vector3 position { get; set; }
-    //public double value { get; set; }
+    private VertexUI _vertexUI;
+    private VertexStatementDisplay _vertexStatementDisplay;
 
     private string _name;
     private Vector3 _position;
@@ -14,34 +15,17 @@ public class Vertex : MonoBehaviour
     private int _id;
 
     private static int _globalId = 0;
-    
-    //public Vertex() 
-    //{
-    //    int amountOfVertex = VertexDataBase.GetAmountOfVertex();
-    //    name = $"q{amountOfVertex}";
-    //    position = Vector3.zero;
-    //    value = 0;
-    //}
-    //public Vertex(string name_, Vector3 position_, double value_)
-    //{
-    //    name = name_;
-    //    position = position_;
-    //    value = value_;
-    //}
     /*
-    public void Initialize()
+    private void Awake()
     {
-        int amountOfVertex = VertexDataBase.GetAmountOfVertex();
-        _name = $"q{amountOfVertex}";
-        _position = Vector3.zero;
-        _value = 0;
-    }
-    */
+        _vertexUI = GetComponent<VertexUI>();
+        _vertexStatementDisplay = GetComponent<VertexStatementDisplay>();
+    }*/
     public void Initialize(string name, Vector3 position, double value)
     {
         if (name == null)
         {
-            int amountOfVertex = VertexDataBase.GetAmountOfVertex();
+            int amountOfVertex = DataBase.GetAmountOfVertex();
             _name = $"q{amountOfVertex}";
         }
         else
@@ -61,6 +45,12 @@ public class Vertex : MonoBehaviour
     public double GetValue() => _value;
     public int GetId() => _id;
 
-
-
+    public void OnSelect()
+    {
+        AllEvents.OnVertexSelect.Invoke(this.gameObject);
+    }
+    public void Remove()
+    {
+        VertexRemover.Remove(this.gameObject);
+    }
 }

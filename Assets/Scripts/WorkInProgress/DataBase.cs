@@ -1,26 +1,23 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class VertexDataBase : MonoBehaviour
+public class DataBase : MonoBehaviour
 {
-    private static int amountOfVertex = 0;
+    private static int _amountOfVertex = 0;
 
-    //[NonSerialized] public static List<GameObject> vertices = new List<GameObject>();
     [NonSerialized] public static Dictionary<Vertex, List<Edge>> vertices = new Dictionary<Vertex, List<Edge>>();
 
-    //public static Dictionary<Vertex, GameObject> vertices = new Dictionary<Vertex, GameObject>();
-    public static int GetAmountOfVertex() => amountOfVertex;
+    public static int GetAmountOfVertex() => _amountOfVertex;
 
     private void Awake()
     {
         AllEvents.OnVertexCreated.AddListener(AddVertex);
-        AllEvents.OnVertexDestroy.AddListener(RemoveVertex);
+        AllEvents.OnVertexRemoved.AddListener(RemoveVertex);
         AllEvents.OnEdgeCreated.AddListener(AddEdge);
-        AllEvents.OnEdgeDestroy.AddListener(RemoveEdge);
+        AllEvents.OnVertexRemoved.AddListener(RemoveEdge);
     }
     private void AddEdge(GameObject edgeObj) 
     {
@@ -39,7 +36,17 @@ public class VertexDataBase : MonoBehaviour
     }
     private void RemoveEdge(GameObject edgeObj)
     {
-    
+        Edge edge = edgeObj.GetComponent<Edge>();
+        Vertex start = edge.GetStartVertex();
+        Vertex end = edge.GetEndVertex();
+
+        if (edge.IsDirected())
+            vertices[start].Remove(edge);
+        else
+        {
+            vertices[start].Remove(edge);
+            vertices[end].Remove(edge);
+        }
     }
     private void PrintBase() 
     {
@@ -57,11 +64,16 @@ public class VertexDataBase : MonoBehaviour
     private void AddVertex(GameObject vertexObj)
     {
         vertices.Add(vertexObj.GetComponent<Vertex>(), new List<Edge>());
-        amountOfVertex++;
+        _amountOfVertex++;
     }
-    private static void RemoveVertex(GameObject vertex)
+    private static void RemoveVertex(GameObject vertexObj)
     {
-        vertices.Remove(vertex.GetComponent<Vertex>());
+        Vertex vertex = vertexObj.GetComponent<Vertex>();
+        foreach(Edge edge in vertices[vertex])
+        {
+            EdgeRemover.Remove(edge.gameObject);
+        }
+        vertices.Remove(vertex);
     }
 
 }

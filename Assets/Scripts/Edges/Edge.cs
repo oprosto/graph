@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Edge : MonoBehaviour
+public class Edge : MonoBehaviour, ISelectable, IRemovable
 {
     private Vertex _start;
     private Vertex _end;
-    private double _value;    
+    private double _value;
     private bool _isDirected;
     private int _id;
 
@@ -22,8 +22,8 @@ public class Edge : MonoBehaviour
     public void SetStartVertex(Vertex vertex) => _start = vertex;
     public void SetEndVertex(Vertex vertex) => _end = vertex;
     public void SetDirection(bool enable) => _isDirected = enable;
-    
-    public void Initialize(Vertex start, Vertex end, double value, bool isDirected = false) 
+
+    public void Initialize(Vertex start, Vertex end, double value, bool isDirected = false)
     {
         _start = start;
         _end = end;
@@ -31,6 +31,14 @@ public class Edge : MonoBehaviour
         _isDirected = isDirected;
         _id = _globalId;
         _globalId++;
+    }
+    public void OnSelect()
+    {
+        AllEvents.OnEdgeSelect.Invoke(this.gameObject);
+    }
+    public void Remove()
+    {
+        EdgeRemover.Remove(this.gameObject);
     }
 
 }
