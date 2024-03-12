@@ -14,10 +14,9 @@ public class EdgeUI : MonoBehaviour
         AllEvents.OnEdgeCreated.AddListener(EdgeCreated);
         AllEvents.OnEdgeSelect.AddListener(DisplayMenuCurrentState);
     }   
-    private void EdgeCreated(GameObject edgeObj)
+    private void EdgeCreated(Edge edge)
     {
-        Edge edge = edgeObj.GetComponent<Edge>();
-        TMP_Text str = edgeObj.GetComponentInChildren<TMP_Text>();
+        TMP_Text str = edge.gameObject.GetComponentInChildren<TMP_Text>();
         Vector3 position = EdgeTools.FindCenter(edge);
         float angle = EdgeTools.FindAngle(edge);
         str.transform.position = position;
@@ -25,7 +24,7 @@ public class EdgeUI : MonoBehaviour
         str.text = edge.GetValue().ToString();
     }
     
-    private void DisplayMenuCurrentState(GameObject edge)
+    private void DisplayMenuCurrentState(Edge edge)
     {
         if (edge == null)
             return;

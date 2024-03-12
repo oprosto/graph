@@ -34,11 +34,11 @@ public class Edge : MonoBehaviour, ISelectable, IRemovable
     }
     public void OnSelect()
     {
-        AllEvents.OnEdgeSelect.Invoke(this.gameObject);
+        AllEvents.OnEdgeSelect.Invoke(this);
     }
     public void Remove()
     {
-        EdgeRemover.Remove(this.gameObject);
+        EdgeRemover.Remove(this);
     }
 
 }

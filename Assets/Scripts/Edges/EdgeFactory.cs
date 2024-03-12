@@ -13,13 +13,13 @@ public class EdgeFactory : MonoBehaviour
         AllEvents.OnCoordinatesSelect.AddListener(OnDeselected);
         AllEvents.OnVertexSelect.AddListener(CreateTEMPORARY);
     }
-    private void CreateTEMPORARY(GameObject vertexObj) 
+    private void CreateTEMPORARY(Vertex vertex) 
     {
         if(_lastVertex == null)
         {
-            _lastVertex = vertexObj;
+            _lastVertex = vertex.gameObject;
         }
-        else if (_isCreate && SelectionSystem.GetSelect().TryGetComponent<Vertex>(out Vertex vertex)) 
+        else if (_isCreate && SelectionSystem.GetSelect().TryGetComponent<Vertex>(out Vertex vertex_)) 
         {
             Create();
         }        
@@ -42,7 +42,7 @@ public class EdgeFactory : MonoBehaviour
 
         edgeObj.GetComponent<BoxCollider2D>().size = new Vector2(EdgeTools.FindLength(edge), 0.5f);
 
-        AllEvents.OnEdgeCreated.Invoke(edgeObj);
+        AllEvents.OnEdgeCreated.Invoke(edge);
     }
     private void OnDeselected(Vector3 vector)   //Так плохо
     {
@@ -51,7 +51,6 @@ public class EdgeFactory : MonoBehaviour
     public void StartCreate() 
     {
         _isCreate = true;
-        
 
     }
 }

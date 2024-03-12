@@ -47,10 +47,10 @@ public class Vertex : MonoBehaviour, ISelectable, IRemovable
 
     public void OnSelect()
     {
-        AllEvents.OnVertexSelect.Invoke(this.gameObject);
+        AllEvents.OnVertexSelect.Invoke(this);
     }
     public void Remove()
     {
-        VertexRemover.Remove(this.gameObject);
+        VertexRemover.Remove(this);
     }
 }

@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.Rendering.HybridV2;
 using UnityEngine;
 
 public class VertexUI : MonoBehaviour
@@ -8,25 +9,28 @@ public class VertexUI : MonoBehaviour
 
     void Awake()
     {
-        AllEvents.OnNameChanged.AddListener(SetName);
+        AllEvents.OnVertexNameChanged.AddListener(SetName);
         AllEvents.OnVertexCreated.AddListener(VertexCreated);
         AllEvents.OnVertexSelect.AddListener(DisplayMenuCurrentState);
     }
-    private void SetName(GameObject vertex,string _name) 
+    private void SetName(Vertex vertex,string _name) 
     {
         vertex.GetComponent<Vertex>().SetName(_name);// = _name;
     }
-    private void VertexCreated(GameObject vertex)
+    private void SetValue()
     {
-        vertex.GetComponentInChildren<TextMeshPro>().text = vertex.GetComponent<Vertex>().GetName();
+        
     }
-    private void DisplayMenuCurrentState(GameObject vertex) 
+    private void VertexCreated(Vertex vertex)
+    {
+        vertex.GetComponentInChildren<TextMeshPro>().text = vertex.GetName();
+    }
+    private void DisplayMenuCurrentState(Vertex vertex) 
     {
         if (vertex == null)
             return;
-        Vertex vertexInfo = vertex.GetComponent<Vertex>(); 
-        nameField.text = vertexInfo.GetName();
-        valueField.text = vertexInfo.GetValue().ToString();
+        nameField.text = vertex.GetName();
+        valueField.text = vertex.GetValue().ToString();
     }
 
 }

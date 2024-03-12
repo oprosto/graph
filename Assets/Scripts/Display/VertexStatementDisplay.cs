@@ -5,18 +5,18 @@ using UnityEngine;
 
 public class VertexStatementDisplay : MonoBehaviour
 {
-    void Awake()
+    private void Start()
     {
-        AllEvents.OnPositionChanged.AddListener(SetPosition);
+        AllEvents.OnVertexPositionChanged.AddListener(SetPosition);
         AllEvents.OnVertexCreated.AddListener(VertexCreated);
     }
-    private void SetPosition(GameObject vertex, Vector3 vector)
+    private void SetPosition(Vertex vertex, Vector3 vector)
     {
-        vertex.transform.position = vector;
+        vertex.gameObject.transform.position = vector;
     }
-    private void VertexCreated(GameObject vertex) 
+    private void VertexCreated(Vertex vertex) 
     {
-        vertex.transform.position = vertex.GetComponent<Vertex>().GetPosition();
+        vertex.gameObject.transform.position = vertex.GetPosition();
     }
     
 

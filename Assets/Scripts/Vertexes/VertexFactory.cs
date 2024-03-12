@@ -24,7 +24,7 @@ public class VertexFactory : MonoBehaviour
         GameObject vertexObj = Instantiate(vertexPrefab);
         Vertex vertex = vertexObj.GetComponent<Vertex>();
         vertex.Initialize(name, position, value);
-        AllEvents.OnVertexCreated.Invoke(vertexObj);
+        AllEvents.OnVertexCreated.Invoke(vertex);
     }
     /*
     public void Remove(GameObject item) 

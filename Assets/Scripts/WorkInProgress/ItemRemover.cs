@@ -18,22 +18,22 @@ public class ItemRemover : MonoBehaviour
 }
 public class VertexRemover: MonoBehaviour
 {
-    public static void Remove(GameObject vertexObj)
+    public static void Remove(Vertex vertex)
     {
-        if (vertexObj == null)
+        if (vertex == null)
             return;
-        AllEvents.OnVertexRemoved.Invoke(vertexObj);
-        Destroy(vertexObj);
+        AllEvents.OnVertexRemoved.Invoke(vertex);
+        Destroy(vertex.gameObject);
         AllEvents.OnVertexSelect.Invoke(null);
 
     }
 }
 public class EdgeRemover: MonoBehaviour 
 {
-    public static void Remove(GameObject edgeObj)
+    public static void Remove(Edge edge)
     {
-        AllEvents.OnEdgeRemoved.Invoke(edgeObj);
-        Destroy(edgeObj);
+        AllEvents.OnEdgeRemoved.Invoke(edge);
+        Destroy(edge.gameObject);
         AllEvents.OnDeselect.Invoke();
     }
 }

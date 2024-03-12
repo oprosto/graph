@@ -25,7 +25,7 @@ public class DisplaySelection : MonoBehaviour
         AllEvents.OnEdgeRemoved.AddListener(RemoveEdgeSelection);
         //AllEvents.OnDeselect.AddListener(Deselect);
     }
-    private void DisplayVertexSelector(GameObject vertex)
+    private void DisplayVertexSelector(Vertex vertex)
     {
         if (vertex == null)
             return;
@@ -37,21 +37,20 @@ public class DisplaySelection : MonoBehaviour
         Tools.toSelectorLayer(ref vertexCord);
         _vertexMarker.transform.position = vertexCord;
     }
-    private void RemoveVertexSelection(GameObject vertex) 
+    private void RemoveVertexSelection(Vertex vertex) 
     {
         _vertexMarker.SetActive(false);
     }
 
-    private void DisplayEdgeSelector(GameObject edgeObj) 
+    private void DisplayEdgeSelector(Edge edge) 
     {
-        if (edgeObj == null)
+        if (edge == null)
             return;
 
         _coordinatesMarker.SetActive(false);
         _vertexMarker.SetActive(false);
         _edgeMarker.SetActive(true);
 
-        Edge edge = edgeObj.GetComponent<Edge>();
         Vector3 start = edge.GetStartVertex().GetPosition();
         Vector3 end = edge.GetEndVertex().GetPosition();
         Tools.toSelectorLayer(ref start);                           //œŒƒ”Ã¿“‹ Õ¿ –»Õ∆»À
@@ -59,7 +58,7 @@ public class DisplaySelection : MonoBehaviour
         _lineMarker.SetPosition(0, start);
         _lineMarker.SetPosition(1, end);
     }
-    private void RemoveEdgeSelection(GameObject edge)
+    private void RemoveEdgeSelection(Edge edge)
     {
         _edgeMarker.SetActive(false);
     }

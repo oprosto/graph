@@ -11,9 +11,9 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Edge
+  - Vertex
+  - Background
   - 
   - 
   - 
@@ -43,4 +43,10 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Vertex
+    uniqueID: 15636803
+    locked: 0
+  - name: Edge
+    uniqueID: 2476534087
     locked: 0

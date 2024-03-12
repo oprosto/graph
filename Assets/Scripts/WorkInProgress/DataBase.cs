@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class DataBase : MonoBehaviour
 {
@@ -17,11 +15,10 @@ public class DataBase : MonoBehaviour
         AllEvents.OnVertexCreated.AddListener(AddVertex);
         AllEvents.OnVertexRemoved.AddListener(RemoveVertex);
         AllEvents.OnEdgeCreated.AddListener(AddEdge);
-        AllEvents.OnVertexRemoved.AddListener(RemoveEdge);
+        AllEvents.OnEdgeRemoved.AddListener(RemoveEdge);
     }
-    private void AddEdge(GameObject edgeObj) 
+    private void AddEdge(Edge edge) 
     {
-        Edge edge = edgeObj.GetComponent<Edge>();
         Vertex start = edge.GetStartVertex();
         Vertex end = edge.GetEndVertex();
 
@@ -34,7 +31,7 @@ public class DataBase : MonoBehaviour
         }
         PrintBase();
     }
-    private void RemoveEdge(GameObject edgeObj)
+    private void RemoveEdge(Edge edgeObj)
     {
         Edge edge = edgeObj.GetComponent<Edge>();
         Vertex start = edge.GetStartVertex();
@@ -61,17 +58,17 @@ public class DataBase : MonoBehaviour
         }
     }   
 
-    private void AddVertex(GameObject vertexObj)
+    private void AddVertex(Vertex vertex)
     {
-        vertices.Add(vertexObj.GetComponent<Vertex>(), new List<Edge>());
+        vertices.Add(vertex, new List<Edge>());
         _amountOfVertex++;
     }
-    private static void RemoveVertex(GameObject vertexObj)
+    private static void RemoveVertex(Vertex vertexObj)
     {
         Vertex vertex = vertexObj.GetComponent<Vertex>();
-        foreach(Edge edge in vertices[vertex])
+        while (vertices[vertex].Count != 0)
         {
-            EdgeRemover.Remove(edge.gameObject);
+            EdgeRemover.Remove(vertices[vertex][0]);
         }
         vertices.Remove(vertex);
     }

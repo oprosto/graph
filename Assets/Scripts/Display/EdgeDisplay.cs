@@ -7,10 +7,9 @@ public class EdgeDisplay : MonoBehaviour
     {
         AllEvents.OnEdgeCreated.AddListener(DisplayEdge);
     }    
-    private void DisplayEdge(GameObject edgeObj)
+    private void DisplayEdge(Edge edge)
     {
-        Edge edge = edgeObj.GetComponent<Edge>();
-        LineRenderer line = edgeObj.GetComponent<LineRenderer>();
+        LineRenderer line = edge.gameObject.GetComponent<LineRenderer>();
         Vector3 start = edge.GetStartVertex().GetPosition();
         Vector3 end = edge.GetEndVertex().GetPosition();
 
