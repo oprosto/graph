@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,15 +6,15 @@ using UnityEngine.EventSystems;
 
 public class SelectionSystem: MonoBehaviour
 {
-    private static MouseControls _controls;
+    private static PCControls _controls;
     private static Camera _mainCamera = null;
-    private static GameObject _currentSelected = null;
+    private static GameObject _lastSelected = null;
 
-    public static GameObject GetSelect() => _currentSelected;
+    public static GameObject GetSelect() => _lastSelected;
     private void Awake() 
     {
         _mainCamera = Camera.main;
-        _controls = new MouseControls();
+        _controls = new PCControls();
 
     }
     private void Start()
@@ -21,7 +22,9 @@ public class SelectionSystem: MonoBehaviour
         AllEvents.OnDeselect.AddListener(OnDeselect);
         _controls.Mouse.Click.started += _ => StartedClick();
         _controls.Mouse.Click.performed += _ => EndedClick();
+        
     }
+
     private void OnEnable()
     {
         _controls.Enable();
@@ -32,10 +35,11 @@ public class SelectionSystem: MonoBehaviour
     }
     private void StartedClick() 
     {
+        DetectObject();
     }
     private void EndedClick() 
     {
-        DetectObject();
+
     }
     private void DetectObject() 
     {
@@ -48,19 +52,19 @@ public class SelectionSystem: MonoBehaviour
         if (hit.collider != null) 
         {
             if (hit.collider.gameObject.TryGetComponent<ISelectable>(out ISelectable target)) 
-            {                
-                _currentSelected = hit.collider.gameObject;
+            {
                 target.OnSelect();
+                _lastSelected = hit.collider.gameObject;                
             }
             else 
             {
-                Debug.Log("You find a bug in selection system, sir!");
+                //Debug.Log("You find a bug in selection system, sir!");
             }
         }
     }
     private void OnDeselect()
     {
-        _currentSelected = null;
+        _lastSelected = null;
     }
     private bool IsPointerOverUIObject()
     {

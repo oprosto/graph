@@ -1,0 +1,82 @@
+{
+    "name": "PCControls",
+    "maps": [
+        {
+            "name": "Mouse",
+            "id": "05961daa-a468-468e-bc3d-3b443e8f4b93",
+            "actions": [
+                {
+                    "name": "Click",
+                    "type": "Button",
+                    "id": "b7843209-5993-4738-ab6a-4739abd9f4f3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Hold",
+                    "type": "Button",
+                    "id": "a4a66025-1103-4b77-a2c7-666be2ad2540",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "84e2292e-6570-423e-af55-5aabc91126da",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "72576868-3199-46a6-9402-9fa95d829546",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Hold",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "KeyBoard",
+            "id": "ecdb8983-e2c6-476b-b2ea-a7bac9d3eb3e",
+            "actions": [
+                {
+                    "name": "Control",
+                    "type": "Button",
+                    "id": "6d725839-6d8c-433f-80af-9f5b393e50da",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "6b1d7496-6ae2-4242-9069-269e5846676d",
+                    "path": "<Keyboard>/ctrl",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Control",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

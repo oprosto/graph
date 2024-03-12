@@ -24,4 +24,5 @@ public class AllEvents
     public static UnityEvent<Edge> OnEdgeRemoved = new UnityEvent<Edge>();
 
     public static UnityEvent OnBackgroundClick = new UnityEvent();
+
 }
