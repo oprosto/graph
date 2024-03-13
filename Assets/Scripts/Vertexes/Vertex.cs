@@ -1,13 +1,11 @@
-using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
 
 /*[RequireComponent(typeof(VertexUI))]
 [RequireComponent (typeof(VertexStatementDisplay))]*/
 public class Vertex : MonoBehaviour, ISelectable, IRemovable
 {
-    private VertexUI _vertexUI;
-    private VertexStatementDisplay _vertexStatementDisplay;
+    //private VertexUI _vertexUI;
+    //private VertexStatementDisplay _vertexStatementDisplay;
 
     private string _name;
     private Vector3 _position;

@@ -4,33 +4,38 @@ using UnityEngine;
 
 public class VertexUI : MonoBehaviour
 {
-    [SerializeField] private TMP_Text nameField;
-    [SerializeField] private TMP_Text valueField;
+    //[SerializeField] private TMP_Text nameField;
+    //[SerializeField] private TMP_Text valueField;
 
     void Awake()
     {
         AllEvents.OnVertexNameChanged.AddListener(SetName);
         AllEvents.OnVertexCreated.AddListener(VertexCreated);
-        AllEvents.OnVertexSelect.AddListener(DisplayMenuCurrentState);
+        AllEvents.OnVertexValueChanged.AddListener(SetValue);
+        //AllEvents.OnVertexSelect.AddListener(ChangeValue);
     }
-    private void SetName(Vertex vertex,string _name) 
+    private void SetName(Vertex vertex,string name) 
     {
-        vertex.GetComponent<Vertex>().SetName(_name);// = _name;
+        vertex.SetName(name);// = _name;
+        //vertex.GetComponentInChildren<TextMeshPro>().text = name; œŒ ¿ »Ãﬂ Õ≈ Œ“Œ¡–¿∆¿ﬁ
     }
-    private void SetValue()
+    private void SetValue(Vertex vertex, double value)
     {
-        
+        vertex.SetValue(value);
+        vertex.GetComponentInChildren<TextMeshPro>().text = value.ToString();
     }
     private void VertexCreated(Vertex vertex)
     {
         vertex.GetComponentInChildren<TextMeshPro>().text = vertex.GetName();
     }
-    private void DisplayMenuCurrentState(Vertex vertex) 
+    /*
+    private void ChangeValue(Vertex vertex) 
     {
         if (vertex == null)
             return;
         nameField.text = vertex.GetName();
         valueField.text = vertex.GetValue().ToString();
     }
+    */
 
 }

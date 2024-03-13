@@ -24,7 +24,7 @@ public class VertexRemover: MonoBehaviour
             return;
         AllEvents.OnVertexRemoved.Invoke(vertex);
         Destroy(vertex.gameObject);
-        AllEvents.OnVertexSelect.Invoke(null);
+        AllEvents.OnDeselect.Invoke();
 
     }
 }

@@ -1,8 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using Unity.Mathematics;
 using UnityEngine;
 
 public class EdgeUI : MonoBehaviour
@@ -12,8 +9,16 @@ public class EdgeUI : MonoBehaviour
     void Awake()
     {       
         AllEvents.OnEdgeCreated.AddListener(EdgeCreated);
-        AllEvents.OnEdgeSelect.AddListener(DisplayMenuCurrentState);
-    }   
+        AllEvents.OnEdgeValueChanged.AddListener(SetValue);
+        //AllEvents.OnEdgeSelect.AddListener(ChangeValue);
+    }
+
+    private void SetValue(Edge edge, double value)
+    {
+        edge.SetValue(value);
+        edge.gameObject.GetComponentInChildren<TextMeshPro>().text = value.ToString();
+    }
+
     private void EdgeCreated(Edge edge)
     {
         TMP_Text str = edge.gameObject.GetComponentInChildren<TMP_Text>();
@@ -24,12 +29,10 @@ public class EdgeUI : MonoBehaviour
         str.text = edge.GetValue().ToString();
     }
     
-    private void DisplayMenuCurrentState(Edge edge)
+    /*private void ChangeValue(Edge edge)
     {
         if (edge == null)
             return;
-        //Edge edgeInfo = edge.GetComponent<Edge>();
-        //nameField.text = edgeInfo.GetValue().ToString();
-    }
+    }*/
 
 }

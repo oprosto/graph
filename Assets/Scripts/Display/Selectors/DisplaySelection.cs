@@ -20,35 +20,34 @@ public class DisplaySelection : MonoBehaviour
     {
         AllEvents.OnVertexSelect.AddListener(DisplayVertexSelector);
         AllEvents.OnCoordinatesSelect.AddListener(DisplayCurrentPosition);
-        AllEvents.OnVertexRemoved.AddListener(RemoveVertexSelection);
+        //AllEvents.OnVertexRemoved.AddListener(RemoveVertexSelection);
         AllEvents.OnEdgeSelect.AddListener(DisplayEdgeSelector);
-        AllEvents.OnEdgeRemoved.AddListener(RemoveEdgeSelection);
-        //AllEvents.OnDeselect.AddListener(Deselect);
+        //AllEvents.OnEdgeRemoved.AddListener(RemoveEdgeSelection);
+        AllEvents.OnDeselect.AddListener(Deselect);
     }
     private void DisplayVertexSelector(Vertex vertex)
     {
         if (vertex == null)
             return;
-        _coordinatesMarker.SetActive(false); 
+        Deselect();
         _vertexMarker.SetActive(true);
-        _edgeMarker.SetActive(false);
 
         Vector3 vertexCord = vertex.GetComponent<Vertex>().GetPosition();
         Tools.toSelectorLayer(ref vertexCord);
         _vertexMarker.transform.position = vertexCord;
     }
+    /*
     private void RemoveVertexSelection(Vertex vertex) 
     {
         _vertexMarker.SetActive(false);
     }
-
+    */
     private void DisplayEdgeSelector(Edge edge) 
     {
         if (edge == null)
             return;
 
-        _coordinatesMarker.SetActive(false);
-        _vertexMarker.SetActive(false);
+        Deselect();
         _edgeMarker.SetActive(true);
 
         Vector3 start = edge.GetStartVertex().GetPosition();
@@ -58,27 +57,28 @@ public class DisplaySelection : MonoBehaviour
         _lineMarker.SetPosition(0, start);
         _lineMarker.SetPosition(1, end);
     }
+    /*
     private void RemoveEdgeSelection(Edge edge)
     {
         _edgeMarker.SetActive(false);
     }
+    */
     private void DisplayCurrentPosition(Vector3 coords)
     {
+        Deselect();
         _coordinatesMarker.SetActive(true);
-        _vertexMarker.SetActive(false);
-        _edgeMarker.SetActive(false);
 
         _coordinatesMarker.transform.position = coords;
-        AllEvents.OnVertexSelect.Invoke(null);
+        
         //Temp
         string temp;
         temp = "X: " + coords.x.ToString() + " Y: " + coords.y.ToString() + " Z: " + coords.z.ToString();
         _coordsText.text = temp;
     }
-    /*private void Deselect() 
+    private void Deselect() 
     {
         _coordinatesMarker.SetActive(false);
         _vertexMarker.SetActive(false);
         _edgeMarker.SetActive(false);
-    }*/
+    }
 }
