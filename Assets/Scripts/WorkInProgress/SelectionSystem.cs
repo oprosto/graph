@@ -1,22 +1,19 @@
-using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 
 public class SelectionSystem : MonoBehaviour
 {
     [SerializeField] private TMP_Text test;
 
     private static PCControls _PCControls;
-    private static MobileControl _MobileControl;
+    private static MobileControls _mobileControl;
     private static Camera _mainCamera = null;
     private static GameObject _lastSelected = null;
 
     private static bool _isMobile;
     public static GameObject GetSelect() => _lastSelected;
-
 
     
 
@@ -26,7 +23,7 @@ public class SelectionSystem : MonoBehaviour
         if (Application.isMobilePlatform)
         {
             _isMobile = true;
-            _MobileControl = new MobileControl();
+            _mobileControl = new MobileControls();
             test.text = "Mobile";
         }   
         else
@@ -42,7 +39,7 @@ public class SelectionSystem : MonoBehaviour
         AllEvents.OnDeselect.AddListener(OnDeselect);
         if (_isMobile)
         {
-
+            _mobileControl.Touch.TouchPress.started += _ => StartTouch();
         }
         else
         {
@@ -52,6 +49,13 @@ public class SelectionSystem : MonoBehaviour
         }
 
     }
+
+    private void StartTouch()
+    {
+        DetectObject(_mobileControl.Touch.TouchPosition.ReadValue<Vector2>());
+        //Debug.Log(_MobileControl.Touch.TouchPosition.ReadValue<Vector2>());
+    }
+
     //бпелеммн рср
     private void Exit()
     {
@@ -61,14 +65,14 @@ public class SelectionSystem : MonoBehaviour
     private void OnEnable()
     {
         if (_isMobile)
-            _MobileControl.Enable();
+            _mobileControl.Enable();
         else
             _PCControls.Enable();
     }
     private void OnDisable()
     {
         if (_isMobile)
-            _MobileControl.Disable();
+            _mobileControl.Disable();
         else
             _PCControls.Disable();
     }
