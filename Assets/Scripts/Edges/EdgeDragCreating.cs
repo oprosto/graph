@@ -16,6 +16,8 @@ public class EdgeDragCreating : MonoBehaviour
 
     private static bool _isEdgeCreate = false;
 
+    private bool _isPC;
+
     private void Awake()
     {
         _edgeFactory = GetComponent<EdgeFactory>();
@@ -29,11 +31,11 @@ public class EdgeDragCreating : MonoBehaviour
         //_controls.Mouse.Click.performed += _ => EndedClick();
         if (Application.isMobilePlatform)
         {
-            Debug.Log("MOBILER");
+            _isPC = true;
         }
-        else 
+        else
         {
-            Debug.Log("PC");
+            _isPC = false;
         }
         _controls.Mouse.Click.started += _ => StartedClick();
         _controls.KeyBoard.Control.started += _ => EdgeCreateStart();
@@ -77,7 +79,7 @@ public class EdgeDragCreating : MonoBehaviour
 
     private void EdgeCreateEnd()
     {
-        _isEdgeCreate = false;
+        _isEdgeCreate = true;
         _lineRenderer.enabled = false;
     }
 

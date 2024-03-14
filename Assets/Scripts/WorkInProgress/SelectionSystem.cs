@@ -1,62 +1,101 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
-public class SelectionSystem: MonoBehaviour
+public class SelectionSystem : MonoBehaviour
 {
-    private static PCControls _controls;
+    [SerializeField] private TMP_Text test;
+
+    private static PCControls _PCControls;
+    private static MobileControl _MobileControl;
     private static Camera _mainCamera = null;
     private static GameObject _lastSelected = null;
 
+    private static bool _isMobile;
     public static GameObject GetSelect() => _lastSelected;
-    private void Awake() 
+
+
+    
+
+    private void Awake()
     {
         _mainCamera = Camera.main;
-        _controls = new PCControls();
+        if (Application.isMobilePlatform)
+        {
+            _isMobile = true;
+            _MobileControl = new MobileControl();
+            test.text = "Mobile";
+        }   
+        else
+        {
+            test.text = "PC";
+            _isMobile = false;
+            _PCControls = new PCControls();
+        }
 
     }
     private void Start()
     {
         AllEvents.OnDeselect.AddListener(OnDeselect);
-        _controls.Mouse.Click.started += _ => StartedClick();
-        _controls.Mouse.Click.performed += _ => EndedClick();
-        
+        if (_isMobile)
+        {
+
+        }
+        else
+        {
+            _PCControls.Mouse.Click.started += _ => StartedClick();
+            _PCControls.Mouse.Click.performed += _ => EndedClick();
+            _PCControls.KeyBoard.Escape.performed += _ => Exit();
+        }
+
+    }
+    //бпелеммн рср
+    private void Exit()
+    {
+        Application.Quit();
     }
 
     private void OnEnable()
     {
-        _controls.Enable();
+        if (_isMobile)
+            _MobileControl.Enable();
+        else
+            _PCControls.Enable();
     }
-    private void OnDisable() 
+    private void OnDisable()
     {
-        _controls.Disable();
+        if (_isMobile)
+            _MobileControl.Disable();
+        else
+            _PCControls.Disable();
     }
-    private void StartedClick() 
+    private void StartedClick()
     {
-        DetectObject();
+        DetectObject(Input.mousePosition);
     }
-    private void EndedClick() 
+    private void EndedClick()
     {
 
     }
-    private void DetectObject() 
+    private void DetectObject(Vector3 clickPosition)
     {
-        Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
+        Ray ray = _mainCamera.ScreenPointToRay(clickPosition);
         RaycastHit2D hit = Physics2D.GetRayIntersection(ray);
         PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
-        eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        eventDataCurrentPosition.position = new Vector2(clickPosition.x, clickPosition.y);
         List<RaycastResult> results = new List<RaycastResult>();
         EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
-        if (hit.collider != null) 
+        if (hit.collider != null)
         {
-            if (hit.collider.gameObject.TryGetComponent<ISelectable>(out ISelectable target)) 
+            if (hit.collider.gameObject.TryGetComponent<ISelectable>(out ISelectable target))
             {
                 target.OnSelect();
-                _lastSelected = hit.collider.gameObject;                
+                _lastSelected = hit.collider.gameObject;
             }
-            else 
+            else
             {
                 //Debug.Log("You find a bug in selection system, sir!");
             }

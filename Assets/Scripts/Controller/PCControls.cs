@@ -25,12 +25,12 @@ public partial class @PCControls: IInputActionCollection2, IDisposable
     ""maps"": [
         {
             ""name"": ""Mouse"",
-            ""id"": ""05961daa-a468-468e-bc3d-3b443e8f4b93"",
+            ""id"": ""222f3c71-a9f9-479d-ada9-5a41c0075900"",
             ""actions"": [
                 {
                     ""name"": ""Click"",
                     ""type"": ""Button"",
-                    ""id"": ""b7843209-5993-4738-ab6a-4739abd9f4f3"",
+                    ""id"": ""44849fd9-1596-415d-8983-851610141e1b"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -39,7 +39,7 @@ public partial class @PCControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""Hold"",
                     ""type"": ""Button"",
-                    ""id"": ""a4a66025-1103-4b77-a2c7-666be2ad2540"",
+                    ""id"": ""4b3ae702-9ace-4725-bcc6-229de45a47a9"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -49,7 +49,7 @@ public partial class @PCControls: IInputActionCollection2, IDisposable
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""84e2292e-6570-423e-af55-5aabc91126da"",
+                    ""id"": ""a8e618fc-324b-4059-93ca-d0d75245cbe7"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": ""Press(behavior=1)"",
                     ""processors"": """",
@@ -60,7 +60,7 @@ public partial class @PCControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""72576868-3199-46a6-9402-9fa95d829546"",
+                    ""id"": ""9197d462-12b7-4e79-8e2c-b5bc12c7cf4f"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": ""Hold"",
                     ""processors"": """",
@@ -73,12 +73,21 @@ public partial class @PCControls: IInputActionCollection2, IDisposable
         },
         {
             ""name"": ""KeyBoard"",
-            ""id"": ""ecdb8983-e2c6-476b-b2ea-a7bac9d3eb3e"",
+            ""id"": ""dd13b893-addb-441b-bbdb-71715cce9110"",
             ""actions"": [
                 {
                     ""name"": ""Control"",
                     ""type"": ""Button"",
-                    ""id"": ""6d725839-6d8c-433f-80af-9f5b393e50da"",
+                    ""id"": ""caea2327-ea14-4d71-b66f-5ec764ef2cc2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Escape"",
+                    ""type"": ""Button"",
+                    ""id"": ""ee77e974-fe96-40d0-bdbf-ced84c13a9b5"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -88,12 +97,23 @@ public partial class @PCControls: IInputActionCollection2, IDisposable
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""6b1d7496-6ae2-4242-9069-269e5846676d"",
+                    ""id"": ""b3291da9-3a44-4a59-a066-3918b94d471c"",
                     ""path"": ""<Keyboard>/ctrl"",
                     ""interactions"": ""Press(behavior=1)"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Control"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eedeeee6-8649-4b15-8dce-3c98e1bacd19"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": ""Press(behavior=1)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Escape"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -109,6 +129,7 @@ public partial class @PCControls: IInputActionCollection2, IDisposable
         // KeyBoard
         m_KeyBoard = asset.FindActionMap("KeyBoard", throwIfNotFound: true);
         m_KeyBoard_Control = m_KeyBoard.FindAction("Control", throwIfNotFound: true);
+        m_KeyBoard_Escape = m_KeyBoard.FindAction("Escape", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -225,11 +246,13 @@ public partial class @PCControls: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_KeyBoard;
     private List<IKeyBoardActions> m_KeyBoardActionsCallbackInterfaces = new List<IKeyBoardActions>();
     private readonly InputAction m_KeyBoard_Control;
+    private readonly InputAction m_KeyBoard_Escape;
     public struct KeyBoardActions
     {
         private @PCControls m_Wrapper;
         public KeyBoardActions(@PCControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Control => m_Wrapper.m_KeyBoard_Control;
+        public InputAction @Escape => m_Wrapper.m_KeyBoard_Escape;
         public InputActionMap Get() { return m_Wrapper.m_KeyBoard; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -242,6 +265,9 @@ public partial class @PCControls: IInputActionCollection2, IDisposable
             @Control.started += instance.OnControl;
             @Control.performed += instance.OnControl;
             @Control.canceled += instance.OnControl;
+            @Escape.started += instance.OnEscape;
+            @Escape.performed += instance.OnEscape;
+            @Escape.canceled += instance.OnEscape;
         }
 
         private void UnregisterCallbacks(IKeyBoardActions instance)
@@ -249,6 +275,9 @@ public partial class @PCControls: IInputActionCollection2, IDisposable
             @Control.started -= instance.OnControl;
             @Control.performed -= instance.OnControl;
             @Control.canceled -= instance.OnControl;
+            @Escape.started -= instance.OnEscape;
+            @Escape.performed -= instance.OnEscape;
+            @Escape.canceled -= instance.OnEscape;
         }
 
         public void RemoveCallbacks(IKeyBoardActions instance)
@@ -274,5 +303,6 @@ public partial class @PCControls: IInputActionCollection2, IDisposable
     public interface IKeyBoardActions
     {
         void OnControl(InputAction.CallbackContext context);
+        void OnEscape(InputAction.CallbackContext context);
     }
 }
