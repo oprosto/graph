@@ -116,7 +116,7 @@ public class EdgeDragCreating : MonoBehaviour
 
     private void EdgeCreateEnd()
     {
-        _isEdgeCreate = true;
+        _isEdgeCreate = false;
         _lineRenderer.enabled = false;
     }
 
