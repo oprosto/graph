@@ -1,0 +1,102 @@
+{
+    "name": "PCControls",
+    "maps": [
+        {
+            "name": "Mouse",
+            "id": "222f3c71-a9f9-479d-ada9-5a41c0075900",
+            "actions": [
+                {
+                    "name": "Click",
+                    "type": "Button",
+                    "id": "44849fd9-1596-415d-8983-851610141e1b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Hold",
+                    "type": "Button",
+                    "id": "4b3ae702-9ace-4725-bcc6-229de45a47a9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "a8e618fc-324b-4059-93ca-d0d75245cbe7",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9197d462-12b7-4e79-8e2c-b5bc12c7cf4f",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Hold",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "KeyBoard",
+            "id": "dd13b893-addb-441b-bbdb-71715cce9110",
+            "actions": [
+                {
+                    "name": "Control",
+                    "type": "Button",
+                    "id": "caea2327-ea14-4d71-b66f-5ec764ef2cc2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Escape",
+                    "type": "Button",
+                    "id": "ee77e974-fe96-40d0-bdbf-ced84c13a9b5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "b3291da9-3a44-4a59-a066-3918b94d471c",
+                    "path": "<Keyboard>/ctrl",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Control",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "eedeeee6-8649-4b15-8dce-3c98e1bacd19",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Escape",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

@@ -1,0 +1,28 @@
+{
+  {
+    "Type": "Vertex",
+    "Position": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "Value": 0,
+    "Name": "Default",
+    "IsValueDisplay": false,
+    "IsNameDisplay": false
+  },
+  {
+    "Type": "Edge",
+    "Position": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "Value": 0,
+    "IsValueDisplay": false,
+    "Rotation": 0
+
+  }
+
+
+}
