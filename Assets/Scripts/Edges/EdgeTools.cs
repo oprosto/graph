@@ -4,6 +4,7 @@ using UnityEngine;
 
 public static class EdgeTools
 {
+    private static float _offsetUI = -0.04f;
     public static Vector3 FindCenter(Edge edge)
     {
         Vector3 resultPosition = Vector3.zero;
@@ -11,8 +12,9 @@ public static class EdgeTools
         Vector3 end = edge.GetEndVertex().GetPosition();
 
         resultPosition.x = (end.x + start.x) / 2;
-        resultPosition.y = (end.y + start.y) / 2;
+        resultPosition.y = (end.y + start.y) / 2 + _offsetUI;
         resultPosition.z = start.z;
+
         return resultPosition;
     }
     public static float FindAngle(Edge edge)

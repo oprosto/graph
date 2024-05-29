@@ -1,13 +1,18 @@
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
 
 public class DataBase : MonoBehaviour
 {
     private static int _amountOfVertex = 0;
 
-    [NonSerialized] public static Dictionary<Vertex, List<Edge>> vertices = new Dictionary<Vertex, List<Edge>>();
+    //[NonSerialized] public static Dictionary<Vertex, List<Edge>> vertices = new Dictionary<Vertex, List<Edge>>();
+    [NonSerialized] public static List<Vertex> vertices = new List<Vertex>();
+    [NonSerialized] public static int _globalVertexID = 0;
+    //[NonSerialized] public static int _globalEdgeID = 0;
 
+    //Правильно уменьшать глобальные переменные при удалении быстро??
     public static int GetAmountOfVertex() => _amountOfVertex;
 
     private void Awake()
@@ -19,17 +24,23 @@ public class DataBase : MonoBehaviour
     }
     private void AddEdge(Edge edge) 
     {
+        
         Vertex start = edge.GetStartVertex();
         Vertex end = edge.GetEndVertex();
-
-        if (edge.IsDirected())        
-            vertices[start].Add(edge);
+        if (edge.IsDirected() != 0)
+        {
+            start.GetEdges().Add(edge);
+            end.GetInputEdges().Add(edge);
+        }
         else
         {
-            vertices[start].Add(edge);
-            vertices[end].Add(edge);
+            start.GetEdges().Add(edge);
+            start.GetInputEdges().Add(edge);
+            end.GetEdges().Add(edge);
+            end.GetInputEdges().Add(edge);
         }
         PrintBase();
+        
     }
     private void RemoveEdge(Edge edgeObj)
     {
@@ -37,38 +48,59 @@ public class DataBase : MonoBehaviour
         Vertex start = edge.GetStartVertex();
         Vertex end = edge.GetEndVertex();
 
-        if (edge.IsDirected())
-            vertices[start].Remove(edge);
+        if (edge.IsDirected() != 0)
+        {
+            start.GetEdges().Remove(edge);
+            end.GetInputEdges().Remove(edge);
+        }
         else
         {
-            vertices[start].Remove(edge);
-            vertices[end].Remove(edge);
+            start.GetEdges().Remove(edge);
+            start.GetInputEdges().Remove(edge);
+            end.GetEdges().Remove(edge);
+            end.GetInputEdges().Remove(edge);
         }
+
     }
     private void PrintBase() 
     {
-        foreach (Vertex vertex in vertices.Keys) 
+        foreach (Vertex vertex in vertices) 
         {
             Debug.Log($"У вершины {vertex.GetId()} ребра: ");
-            foreach(Edge edge in vertices[vertex])
+            foreach(Edge edge in vertex.GetEdges())
             {
                 Debug.Log(edge.GetId());
             }
-            
+            Debug.Log($"У вершины входят {vertex.GetId()} ребра: ");
+            foreach (Edge edge in vertex.GetInputEdges())
+            {
+                Debug.Log(edge.GetId());
+            }
+            Debug.Log("-------------------------------------------------");
         }
     }   
 
     private void AddVertex(Vertex vertex)
     {
-        vertices.Add(vertex, new List<Edge>());
+        //vertices.Add(vertex, new List<Edge>());
+        vertices.Add(vertex);
         _amountOfVertex++;
+        _globalVertexID++;
     }
     private static void RemoveVertex(Vertex vertexObj)
     {
         Vertex vertex = vertexObj.GetComponent<Vertex>();
-        while (vertices[vertex].Count != 0)
+        /*while (vertices[vertex].Count != 0)
         {
             EdgeRemover.Remove(vertices[vertex][0]);
+        }*/
+        while(vertex.GetEdges().Count != 0)
+        {
+            EdgeRemover.Remove(vertex.GetEdges()[0]);
+        }
+        while (vertex.GetInputEdges().Count != 0)
+        {
+            EdgeRemover.Remove(vertex.GetInputEdges()[0]);
         }
         vertices.Remove(vertex);
     }

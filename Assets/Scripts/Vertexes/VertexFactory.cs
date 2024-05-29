@@ -25,7 +25,9 @@ public class VertexFactory : MonoBehaviour
         Vertex vertex = vertexObj.GetComponent<Vertex>();
         vertex.Initialize(name, position, value);
         AllEvents.OnVertexCreated.Invoke(vertex);
+        AllEvents.OnDeselect.Invoke();
     }
+
     /*
     public void Remove(GameObject item) 
     {

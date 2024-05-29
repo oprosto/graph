@@ -17,7 +17,7 @@ public class VertexUI : MonoBehaviour
     private void SetName(Vertex vertex,string name) 
     {
         vertex.SetName(name);// = _name;
-        //vertex.GetComponentInChildren<TextMeshPro>().text = name; œŒ ¿ »Ãﬂ Õ≈ Œ“Œ¡–¿∆¿ﬁ
+        vertex.GetComponentInChildren<TextMeshPro>().text = name;
     }
     private void SetValue(Vertex vertex, double value)
     {
