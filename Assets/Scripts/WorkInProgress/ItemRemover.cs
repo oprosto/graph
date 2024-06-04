@@ -6,12 +6,13 @@ public class ItemRemover : MonoBehaviour
 {
     //Не знаю, хорошо ли связывать этот компонент с выделением
 
-    public void RemoveItem() 
+    public static void RemoveItem() 
     {
-        if (SelectionSystem.GetSelect().TryGetComponent<IRemovable>(out IRemovable item)) 
+        if (SelectionSystem.GetSelect() != null && SelectionSystem.GetSelect().TryGetComponent<IRemovable>(out IRemovable item))
         {
             item.Remove();
-        }
+        }    
+            
     }
 
 
@@ -32,6 +33,7 @@ public class EdgeRemover: MonoBehaviour
 {
     public static void Remove(Edge edge)
     {
+        if (edge == null) return;
         AllEvents.OnEdgeRemoved.Invoke(edge);
         Destroy(edge.gameObject);
         AllEvents.OnDeselect.Invoke();

@@ -8,7 +8,6 @@ public class VertexFactory : MonoBehaviour
 
     [SerializeField] private GameObject vertexPrefab;
 
-
     public void Create()
     {
         double value;
@@ -21,6 +20,14 @@ public class VertexFactory : MonoBehaviour
         name = NameField.text.Substring(0, NameField.text.Length - 1);
 
         position = InputCoords.GetCoords();
+        GameObject vertexObj = Instantiate(vertexPrefab);
+        Vertex vertex = vertexObj.GetComponent<Vertex>();
+        vertex.Initialize(name, position, value);
+        AllEvents.OnVertexCreated.Invoke(vertex);
+        AllEvents.OnDeselect.Invoke();
+    }
+    public void Create(string name, Vector3 position, double value)
+    {
         GameObject vertexObj = Instantiate(vertexPrefab);
         Vertex vertex = vertexObj.GetComponent<Vertex>();
         vertex.Initialize(name, position, value);

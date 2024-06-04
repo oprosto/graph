@@ -5,9 +5,10 @@ using UnityEngine.EventSystems;
 
 public class Tools : MonoBehaviour
 {
-    private static float _markLayer = 2f;
-    private static float _vertexLayer = 1.0f;
-    private static float _edgeLayer = 1.5f;
+    private static readonly float _markLayer = 2f;
+    private static readonly float _vertexLayer = 1.0f;
+    private static readonly float _edgeLayer = 1.5f;
+    private static readonly float _dijkstraLayer = 1.0f;
     public static void to2D(ref Vector3 vector) 
     {
         vector.z = 0;
@@ -24,5 +25,8 @@ public class Tools : MonoBehaviour
     {
         vector.z = _edgeLayer;
     }
-   
+    public static void toDijkstraLayer(ref Vector3 vector)
+    {
+        vector.z = _dijkstraLayer;
+    }
 }

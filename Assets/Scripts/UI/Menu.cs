@@ -109,13 +109,13 @@ public class Menu : MonoBehaviour
         switch (value) 
         {
             case (int)EdgeDropDown.NonDirected:
-                _edge.SetDirection((byte)EdgeDropDown.NonDirected);
+                _edge.SetDirection((Direction)EdgeDropDown.NonDirected);
                 break;
             case (int)EdgeDropDown.Start:
-                _edge.SetDirection((byte)EdgeDropDown.Start);
+                _edge.SetDirection((Direction)EdgeDropDown.Start);
                 break;
             case (int)EdgeDropDown.End:
-                _edge.SetDirection((byte)EdgeDropDown.End);
+                _edge.SetDirection((Direction)EdgeDropDown.End);
                 break;
         }
 

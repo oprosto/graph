@@ -22,9 +22,24 @@ public class EdgeFactory : MonoBehaviour
         }
         AllEvents.OnVertexSelect.RemoveListener(CreateByButton);
     }
-    public void Create(Vertex from, Vertex to, double value = 0, byte direction = 0) 
+    /*
+    private void CreateForward(Vertex from, Vertex to, double value, Direction direction) 
     {
+        GameObject edgeObj = Instantiate(_edgePrefab);
+        Edge edge = edgeObj.GetComponent<Edge>();
+        edge.Initialize(from, to, value, direction);
 
+        edgeObj.transform.position = EdgeTools.FindCenter(edge);
+        edgeObj.transform.rotation = Quaternion.Euler(0, 0, EdgeTools.FindAngle(edge));
+
+        edgeObj.GetComponent<BoxCollider2D>().size = new Vector2(EdgeTools.FindLength(edge) - _offset, 0.25f);
+
+        AllEvents.OnEdgeCreated.Invoke(edge);
+    }
+    */
+    /*
+    private void CreateBackward(Vertex from, Vertex to, double value, Direction direction)
+    {
         GameObject edgeObj = Instantiate(_edgePrefab);
         Edge edge = edgeObj.GetComponent<Edge>();
         edge.Initialize(from, to, value, direction);
@@ -33,21 +48,51 @@ public class EdgeFactory : MonoBehaviour
         edgeObj.transform.rotation = Quaternion.Euler(0, 0, EdgeTools.FindAngle(edge));
 
         edgeObj.GetComponent<BoxCollider2D>().size = new Vector2(EdgeTools.FindLength(edge) - _offset, 0.5f);
-        /*
-        if (direction == 0)
-        {
-            from.AddEdge(edge);
-            to.AddInputEdge(edge);
-        }
-        else
-        {
-            from.AddEdge(edge);
-            to.AddEdge(edge);
-            from.AddInputEdge(edge);
-            to.AddInputEdge(edge);
-        }
-        */
+
         AllEvents.OnEdgeCreated.Invoke(edge);
+    }
+    */
+    /*
+    private void CreateBoth(Vertex from, Vertex to, double value, Direction direction)
+    {
+        GameObject edgeObj = Instantiate(_edgePrefab);
+        Edge edge = edgeObj.GetComponent<Edge>();
+        edge.Initialize(from, to, value, direction);
+
+        edgeObj.transform.position = EdgeTools.FindCenter(edge);
+        edgeObj.transform.rotation = Quaternion.Euler(0, 0, EdgeTools.FindAngle(edge));
+
+        edgeObj.GetComponent<BoxCollider2D>().size = new Vector2(EdgeTools.FindLength(edge) - _offset, 0.5f);
+
+        AllEvents.OnEdgeCreated.Invoke(edge);
+    }*/
+    public void Create(Vertex from, Vertex to, double value = 0, Direction direction = Direction.Forward) 
+    {
+        /*
+        switch (direction) 
+        {
+            case Direction.Forward:
+                CreateForward(from, to, value, direction);
+                break;
+            case Direction.Backward:
+                CreateBackward(to, from, value, direction);
+                break;
+            case Direction.None:
+                CreateForward(from, to, value, direction);
+                CreateBackward(to, from, value, direction);
+                break;
+        }*/
+        GameObject edgeObj = Instantiate(_edgePrefab);
+        Edge edge = edgeObj.GetComponent<Edge>();
+        edge.Initialize(from, to, value, direction);
+
+        edgeObj.transform.position = EdgeTools.FindCenter(edge);
+        edgeObj.transform.rotation = Quaternion.Euler(0, 0, EdgeTools.FindAngle(edge));
+
+        edgeObj.GetComponent<BoxCollider2D>().size = new Vector2(EdgeTools.FindLength(edge) - _offset, 0.25f);
+
+        AllEvents.OnEdgeCreated.Invoke(edge);
+
     }
     private void OnDeselected(Vector3 vector)   //Так плохо объединить все deselect в один
     {

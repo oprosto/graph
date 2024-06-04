@@ -27,19 +27,10 @@ public class DataBase : MonoBehaviour
         
         Vertex start = edge.GetStartVertex();
         Vertex end = edge.GetEndVertex();
-        if (edge.IsDirected() != 0)
-        {
-            start.GetEdges().Add(edge);
-            end.GetInputEdges().Add(edge);
-        }
-        else
-        {
-            start.GetEdges().Add(edge);
-            start.GetInputEdges().Add(edge);
-            end.GetEdges().Add(edge);
-            end.GetInputEdges().Add(edge);
-        }
-        PrintBase();
+        start.GetEdges().Add(edge);
+        end.GetInputEdges().Add(edge);
+        
+        //PrintBase();
         
     }
     private void RemoveEdge(Edge edgeObj)
@@ -48,7 +39,7 @@ public class DataBase : MonoBehaviour
         Vertex start = edge.GetStartVertex();
         Vertex end = edge.GetEndVertex();
 
-        if (edge.IsDirected() != 0)
+        if (edge.IsDirected() != Direction.None)
         {
             start.GetEdges().Remove(edge);
             end.GetInputEdges().Remove(edge);
@@ -57,12 +48,12 @@ public class DataBase : MonoBehaviour
         {
             start.GetEdges().Remove(edge);
             start.GetInputEdges().Remove(edge);
-            end.GetEdges().Remove(edge);
+            end.GetEdges().Remove(end.GetEdges().Find(x => x.GetId() == start.GetId()));
             end.GetInputEdges().Remove(edge);
         }
 
     }
-    private void PrintBase() 
+    public void PrintBase() 
     {
         foreach (Vertex vertex in vertices) 
         {
@@ -72,10 +63,12 @@ public class DataBase : MonoBehaviour
                 Debug.Log(edge.GetId());
             }
             Debug.Log($"У вершины входят {vertex.GetId()} ребра: ");
+            /*
             foreach (Edge edge in vertex.GetInputEdges())
             {
                 Debug.Log(edge.GetId());
             }
+            */
             Debug.Log("-------------------------------------------------");
         }
     }   
@@ -86,6 +79,12 @@ public class DataBase : MonoBehaviour
         vertices.Add(vertex);
         _amountOfVertex++;
         _globalVertexID++;
+    }
+    private Edge MakeOppositeEdge(Edge edge) 
+    {
+        Edge ReverseEdge = new Edge(); //Подумать с объявлением объектов класса monobehavior
+        ReverseEdge.Initialize(edge.GetEndVertex(), edge.GetStartVertex(), edge.GetValue());
+        return ReverseEdge;
     }
     private static void RemoveVertex(Vertex vertexObj)
     {
@@ -98,11 +97,20 @@ public class DataBase : MonoBehaviour
         {
             EdgeRemover.Remove(vertex.GetEdges()[0]);
         }
+        
         while (vertex.GetInputEdges().Count != 0)
         {
             EdgeRemover.Remove(vertex.GetInputEdges()[0]);
         }
         vertices.Remove(vertex);
+        
     }
-
+    static public void ClearScene()
+    {
+        while (vertices.Count != 0)
+        {
+           vertices[0].Remove();
+        }
+        _amountOfVertex = 0;
+    }
 }

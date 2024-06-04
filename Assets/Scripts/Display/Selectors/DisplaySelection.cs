@@ -10,7 +10,7 @@ public class DisplaySelection : MonoBehaviour
     [SerializeField] private GameObject _edgeMarker;
     private LineRenderer _lineMarker;
 
-    [SerializeField] TMP_Text _coordsText;
+    //[SerializeField] TMP_Text _coordsText;
 
     private void Awake()
     {
@@ -50,8 +50,10 @@ public class DisplaySelection : MonoBehaviour
         Deselect();
         _edgeMarker.SetActive(true);
 
-        Vector3 start = edge.GetStartVertex().GetPosition();
-        Vector3 end = edge.GetEndVertex().GetPosition();
+        //Vector3 start = edge.GetStartVertex().GetPosition();
+        //Vector3 end = edge.GetEndVertex().GetPosition();
+        Vector3 start = EdgeTools.FindCoolPosition(edge, true);
+        Vector3 end = EdgeTools.FindCoolPosition(edge, false);
         Tools.toSelectorLayer(ref start);                           //œŒƒ”Ã¿“‹ Õ¿ –»Õ∆»À
         Tools.toSelectorLayer(ref end);
         _lineMarker.SetPosition(0, start);
@@ -63,18 +65,15 @@ public class DisplaySelection : MonoBehaviour
         _edgeMarker.SetActive(false);
     }
     */
+    
     private void DisplayCurrentPosition(Vector3 coords)
     {
         Deselect();
         _coordinatesMarker.SetActive(true);
 
         _coordinatesMarker.transform.position = coords;
-        
-        //Temp
-        string temp;
-        temp = "X: " + coords.x.ToString() + " Y: " + coords.y.ToString() + " Z: " + coords.z.ToString();
-        _coordsText.text = temp;
     }
+    
     private void Deselect() 
     {
         _coordinatesMarker.SetActive(false);

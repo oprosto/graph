@@ -72,6 +72,15 @@ public partial class @PCControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": ""Press"",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Delete"",
+                    ""type"": ""Button"",
+                    ""id"": ""273510f8-3e42-4311-b5eb-8c2aba1362ac"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -96,6 +105,17 @@ public partial class @PCControls: IInputActionCollection2, IDisposable
                     ""action"": ""Escape"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2b380518-f80f-4466-ad60-1f8c0aa377df"",
+                    ""path"": ""<Keyboard>/delete"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Delete"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -109,6 +129,7 @@ public partial class @PCControls: IInputActionCollection2, IDisposable
         m_KeyBoard = asset.FindActionMap("KeyBoard", throwIfNotFound: true);
         m_KeyBoard_Control = m_KeyBoard.FindAction("Control", throwIfNotFound: true);
         m_KeyBoard_Escape = m_KeyBoard.FindAction("Escape", throwIfNotFound: true);
+        m_KeyBoard_Delete = m_KeyBoard.FindAction("Delete", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -218,12 +239,14 @@ public partial class @PCControls: IInputActionCollection2, IDisposable
     private List<IKeyBoardActions> m_KeyBoardActionsCallbackInterfaces = new List<IKeyBoardActions>();
     private readonly InputAction m_KeyBoard_Control;
     private readonly InputAction m_KeyBoard_Escape;
+    private readonly InputAction m_KeyBoard_Delete;
     public struct KeyBoardActions
     {
         private @PCControls m_Wrapper;
         public KeyBoardActions(@PCControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Control => m_Wrapper.m_KeyBoard_Control;
         public InputAction @Escape => m_Wrapper.m_KeyBoard_Escape;
+        public InputAction @Delete => m_Wrapper.m_KeyBoard_Delete;
         public InputActionMap Get() { return m_Wrapper.m_KeyBoard; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -239,6 +262,9 @@ public partial class @PCControls: IInputActionCollection2, IDisposable
             @Escape.started += instance.OnEscape;
             @Escape.performed += instance.OnEscape;
             @Escape.canceled += instance.OnEscape;
+            @Delete.started += instance.OnDelete;
+            @Delete.performed += instance.OnDelete;
+            @Delete.canceled += instance.OnDelete;
         }
 
         private void UnregisterCallbacks(IKeyBoardActions instance)
@@ -249,6 +275,9 @@ public partial class @PCControls: IInputActionCollection2, IDisposable
             @Escape.started -= instance.OnEscape;
             @Escape.performed -= instance.OnEscape;
             @Escape.canceled -= instance.OnEscape;
+            @Delete.started -= instance.OnDelete;
+            @Delete.performed -= instance.OnDelete;
+            @Delete.canceled -= instance.OnDelete;
         }
 
         public void RemoveCallbacks(IKeyBoardActions instance)
@@ -274,5 +303,6 @@ public partial class @PCControls: IInputActionCollection2, IDisposable
     {
         void OnControl(InputAction.CallbackContext context);
         void OnEscape(InputAction.CallbackContext context);
+        void OnDelete(InputAction.CallbackContext context);
     }
 }

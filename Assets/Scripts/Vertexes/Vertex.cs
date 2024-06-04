@@ -39,10 +39,12 @@ public class Vertex : MonoBehaviour, ISelectable, IRemovable
             _edges = new List<Edge>();
         else
             _edges = edges;
+        
         if (inputEdges == null)        
             _inputEdges = new List<Edge>();        
         else
             _inputEdges = inputEdges;
+        
         _id = DataBase._globalVertexID;
     }
 
@@ -77,7 +79,7 @@ public class RawVertex
     public double _value;
     public int _id;
     public RawEdge[] _edges;
-    //public RawEdge _edge;
+    public RawEdge _edge;
 
     public RawVertex() 
     {

@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public class SelectionSystem : MonoBehaviour
 {
-    [SerializeField] private TMP_Text test;
+    //[SerializeField] private TMP_Text test;
 
     private static PCControls _PCControls;
     private static MobileControls _mobileControl;
@@ -24,11 +24,11 @@ public class SelectionSystem : MonoBehaviour
         {
             _isMobile = true;
             _mobileControl = new MobileControls();
-            test.text = "Mobile";
+            //test.text = "Mobile";
         }   
         else
         {
-            test.text = "PC";
+            //test.text = "PC";
             _isMobile = false;
             _PCControls = new PCControls();
         }
@@ -46,6 +46,7 @@ public class SelectionSystem : MonoBehaviour
             _PCControls.Mouse.Click.started += _ => StartedClick();
             _PCControls.Mouse.Click.performed += _ => EndedClick();
             _PCControls.KeyBoard.Escape.performed += _ => Exit();
+            _PCControls.KeyBoard.Delete.performed += _ => Delete();
         }
 
     }
@@ -61,7 +62,10 @@ public class SelectionSystem : MonoBehaviour
     {
         Application.Quit();
     }
-
+    private void Delete() 
+    {
+        ItemRemover.RemoveItem();
+    }
     private void OnEnable()
     {
         if (_isMobile)
