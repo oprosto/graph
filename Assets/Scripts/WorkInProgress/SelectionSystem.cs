@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+//[RequireComponent(typeof(VertexFactory))]
 public class SelectionSystem : MonoBehaviour
 {
     //[SerializeField] private TMP_Text test;
@@ -11,10 +12,10 @@ public class SelectionSystem : MonoBehaviour
     private static MobileControls _mobileControl;
     private static Camera _mainCamera = null;
     private static GameObject _lastSelected = null;
-
+    //private VertexFactory _vertexFactory;
     private static bool _isMobile;
     public static GameObject GetSelect() => _lastSelected;
-
+    
     
 
     private void Awake()
@@ -47,10 +48,16 @@ public class SelectionSystem : MonoBehaviour
             _PCControls.Mouse.Click.performed += _ => EndedClick();
             _PCControls.KeyBoard.Escape.performed += _ => Exit();
             _PCControls.KeyBoard.Delete.performed += _ => Delete();
+            //_PCControls.KeyBoard.AddVertex.performed += _ => CreateVertex();
         }
-
+        //_vertexFactory = GetComponent<VertexFactory>();
     }
-
+    /*
+    private void CreateVertex() 
+    {       
+        _vertexFactory.Create();
+    }
+    */
     private void StartTouch()
     {
         DetectObject(_mobileControl.Touch.TouchPosition.ReadValue<Vector2>());

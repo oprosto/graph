@@ -81,6 +81,15 @@ public partial class @PCControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": ""Press"",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AddVertex"",
+                    ""type"": ""Button"",
+                    ""id"": ""22156726-a474-4e9f-bd73-4e4f16c992cc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -116,6 +125,17 @@ public partial class @PCControls: IInputActionCollection2, IDisposable
                     ""action"": ""Delete"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5df1bdfe-97cc-47bc-bbb6-ce52bfd04f5e"",
+                    ""path"": ""<Keyboard>/alt"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AddVertex"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -130,6 +150,7 @@ public partial class @PCControls: IInputActionCollection2, IDisposable
         m_KeyBoard_Control = m_KeyBoard.FindAction("Control", throwIfNotFound: true);
         m_KeyBoard_Escape = m_KeyBoard.FindAction("Escape", throwIfNotFound: true);
         m_KeyBoard_Delete = m_KeyBoard.FindAction("Delete", throwIfNotFound: true);
+        m_KeyBoard_AddVertex = m_KeyBoard.FindAction("AddVertex", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -240,6 +261,7 @@ public partial class @PCControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_KeyBoard_Control;
     private readonly InputAction m_KeyBoard_Escape;
     private readonly InputAction m_KeyBoard_Delete;
+    private readonly InputAction m_KeyBoard_AddVertex;
     public struct KeyBoardActions
     {
         private @PCControls m_Wrapper;
@@ -247,6 +269,7 @@ public partial class @PCControls: IInputActionCollection2, IDisposable
         public InputAction @Control => m_Wrapper.m_KeyBoard_Control;
         public InputAction @Escape => m_Wrapper.m_KeyBoard_Escape;
         public InputAction @Delete => m_Wrapper.m_KeyBoard_Delete;
+        public InputAction @AddVertex => m_Wrapper.m_KeyBoard_AddVertex;
         public InputActionMap Get() { return m_Wrapper.m_KeyBoard; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -265,6 +288,9 @@ public partial class @PCControls: IInputActionCollection2, IDisposable
             @Delete.started += instance.OnDelete;
             @Delete.performed += instance.OnDelete;
             @Delete.canceled += instance.OnDelete;
+            @AddVertex.started += instance.OnAddVertex;
+            @AddVertex.performed += instance.OnAddVertex;
+            @AddVertex.canceled += instance.OnAddVertex;
         }
 
         private void UnregisterCallbacks(IKeyBoardActions instance)
@@ -278,6 +304,9 @@ public partial class @PCControls: IInputActionCollection2, IDisposable
             @Delete.started -= instance.OnDelete;
             @Delete.performed -= instance.OnDelete;
             @Delete.canceled -= instance.OnDelete;
+            @AddVertex.started -= instance.OnAddVertex;
+            @AddVertex.performed -= instance.OnAddVertex;
+            @AddVertex.canceled -= instance.OnAddVertex;
         }
 
         public void RemoveCallbacks(IKeyBoardActions instance)
@@ -304,5 +333,6 @@ public partial class @PCControls: IInputActionCollection2, IDisposable
         void OnControl(InputAction.CallbackContext context);
         void OnEscape(InputAction.CallbackContext context);
         void OnDelete(InputAction.CallbackContext context);
+        void OnAddVertex(InputAction.CallbackContext context);
     }
 }

@@ -30,6 +30,7 @@ public static class FileHandler
     private static void WriteFile(string path, string content) 
     {
         FileStream fileStream = new FileStream(path, FileMode.OpenOrCreate);
+        fileStream.Flush();
 
         using (StreamWriter writer = new StreamWriter(fileStream)) 
         {

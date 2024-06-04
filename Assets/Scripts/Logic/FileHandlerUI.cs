@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,6 +10,7 @@ public class FileHandlerUI : MonoBehaviour
 {
     [SerializeField] private GameObject vertexPrefab;
     private static EdgeFactory _edgeFactory = null;
+    private static int _maxFiles = 0;
     
     private void Awake()
     {
@@ -29,9 +29,11 @@ public class FileHandlerUI : MonoBehaviour
         //File.WriteAllText(path, json);
     }
     
-    public void LoadFile() 
+    public void LoadFile(string path) 
     {
-        string path = EditorUtility.OpenFilePanel("Load", Application.dataPath, "json");
+//#if UNITY_EDITOR
+//        string path = EditorUtility.OpenFilePanel("Load", Application.dataPath, "json");
+//#endif
         if (!File.Exists(path))
         {
             Debug.Log("Load file is not exist");
@@ -46,13 +48,6 @@ public class FileHandlerUI : MonoBehaviour
             
             GameObject vertexObj = Instantiate(vertexPrefab);
             Vertex vertex = vertexObj.GetComponent<Vertex>();
-            /*List<Edge> edges = new List<Edge>();
-            foreach (RawEdge rawEdge in rawVertex._edges)
-            {
-                Edge edge = new Edge();
-                edge.Initialize(,,);
-                edges.Add();
-            }*/ //—œ–Œ—»“‹  ¿–ÀŒ¬¿  ¿  À”◊ÿ≈ —ƒ≈À¿“‹ «¿√–”« ” –≈¡≈–
             vertex.Initialize(rawVertex._name, rawVertex._position, rawVertex._value);
             AllEvents.OnVertexCreated.Invoke(vertex);
             vertices.Add(rawVertex._id, vertex);
@@ -78,9 +73,11 @@ public class FileHandlerUI : MonoBehaviour
         Debug.Log("NIGGGER");
         //JsonUtility.FromJson<>();
     }
-    public void SaveFile() 
+    public void SaveFile(string path) 
     {
-        string path = EditorUtility.SaveFilePanel("Saving file", Application.dataPath, "Graph", "json");
+//#if UNITY_EDITOR
+//        string path = EditorUtility.SaveFilePanel("Saving file", Application.dataPath, "Graph", "json");
+//#endif
         /*if (!File.Exists(path))
         {
             Debug.Log("Wrong file");

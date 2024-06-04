@@ -7,8 +7,8 @@ using UnityEngine;
 [RequireComponent(typeof(DijkstraDisplay))]
 public class DiykstraMethod : MonoBehaviour
 {
-    [SerializeField] private GameObject _from;
-    [SerializeField] private GameObject _to;
+    //[SerializeField] private GameObject _from;
+    //[SerializeField] private GameObject _to;
     private DijkstraDisplay _display;
     private int MAX;
     private Dictionary<int, Vertex> _parents;
@@ -18,12 +18,12 @@ public class DiykstraMethod : MonoBehaviour
     {
         _display = GetComponent<DijkstraDisplay>();
     }
-    public void startDijkstra() 
+    public double startDijkstra(Vertex from, Vertex to) 
     {
         //findDaWay(DataBase.vertices[0], DataBase.vertices[DataBase.GetAmountOfVertex()-1]);
-        findDaWay(_from.GetComponent<Vertex>(), _to.GetComponent<Vertex>());
+        return findDaWay(from, to);
     }
-    private void findDaWay(Vertex start, Vertex end)
+    private double findDaWay(Vertex start, Vertex end)
     {
         int MAX = DataBase.GetAmountOfVertex();
         List<Vertex> S = new List<Vertex>(DataBase.vertices);
@@ -102,8 +102,9 @@ public class DiykstraMethod : MonoBehaviour
 
 
         }
-        Debug.Log("Result = " + _distance[end.GetId()]);
+        //Debug.Log("Result = " + _distance[end.GetId()]);
         FindWay(start, end);
+        return _distance[end.GetId()];
 
     }
     private void FindWay(Vertex start, Vertex end) 

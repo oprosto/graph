@@ -30,6 +30,15 @@ public class DijkstraDisplay : MonoBehaviour
         _lineRenderer.SetPositions(null);
         _lastWay = null;
     }*/
+    public void Clear() 
+    {
+        if (_lastWay == null)
+            return;
+        foreach (Edge e in _lastWay)
+        {
+            e.gameObject.GetComponent<LineRenderer>().material = _baseMaterial;
+        }
+    }
     private void Clear(Edge edge)
     {
         if (_lastWay == null)
@@ -43,7 +52,7 @@ public class DijkstraDisplay : MonoBehaviour
     }
     public void DisplayWay(List<Edge> way)
     {
-        Clear(way[0]);
+        Clear();
         foreach (Edge e in way) 
         {
             e.gameObject.GetComponent<LineRenderer>().material = _DijkstraMaterial;
