@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 public enum Direction 
 {
@@ -15,8 +13,6 @@ public class Edge : MonoBehaviour, ISelectable, IRemovable
     private double _value;
     private Direction _direction;
     private int _id;
-
-    //private static int _globalId = 0;
 
     public double GetValue() => _value;
     public Vertex GetStartVertex() => _start;
@@ -53,13 +49,6 @@ public struct RawEdge
     public double _value;
     public Direction _direction;
     public int _id;
-    /*
-    public RawEdge() 
-    {
-        _value = 0;
-        _direction = 0;
-        _id = 0;
-    }*/
     public RawEdge(Edge edge) 
     {
         _value = edge.GetValue();

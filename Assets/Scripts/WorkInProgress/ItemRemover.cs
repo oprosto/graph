@@ -1,11 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-//Возможно стоит объединить все ремуверы под itemRemover через паттерн IVisiter. Тогда Vertex, Edge и прочее будут главными объектами, собирающими остальные
 public class ItemRemover : MonoBehaviour
 {
-    //Не знаю, хорошо ли связывать этот компонент с выделением
-
     public static void RemoveItem() 
     {
         if (SelectionSystem.GetSelect() != null && SelectionSystem.GetSelect().TryGetComponent<IRemovable>(out IRemovable item))
@@ -14,8 +9,6 @@ public class ItemRemover : MonoBehaviour
         }    
             
     }
-
-
 }
 public class VertexRemover: MonoBehaviour
 {
@@ -26,7 +19,6 @@ public class VertexRemover: MonoBehaviour
         AllEvents.OnVertexRemoved.Invoke(vertex);
         Destroy(vertex.gameObject);
         AllEvents.OnDeselect.Invoke();
-
     }
 }
 public class EdgeRemover: MonoBehaviour 

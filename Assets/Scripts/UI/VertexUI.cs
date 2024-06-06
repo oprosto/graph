@@ -19,11 +19,13 @@ public class VertexUI : MonoBehaviour
         vertex.SetName(name);// = _name;
         vertex.GetComponentInChildren<TextMeshPro>().text = name;
     }
+    
     private void SetValue(Vertex vertex, double value)
     {
         vertex.SetValue(value);
-        vertex.GetComponentInChildren<TextMeshPro>().text = value.ToString();
+        //vertex.GetComponentInChildren<TextMeshPro>().text = value.ToString();
     }
+    
     private void VertexCreated(Vertex vertex)
     {
         vertex.GetComponentInChildren<TextMeshPro>().text = vertex.GetName();

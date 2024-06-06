@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -13,7 +10,7 @@ public class FilePanel : MonoBehaviour
     [SerializeField] private GameObject _load;
     [SerializeField] private GameObject _appUI;
     [SerializeField] private TMP_Text _catalog;
-    [SerializeField] private TMP_Text _inputName;
+    [SerializeField] private TMP_InputField _inputName;
     private static string _name;
     private static FileHandlerUI _FH;
 
@@ -25,20 +22,6 @@ public class FilePanel : MonoBehaviour
     {
         _name = _inputName.text;
     }
-    /*
-    private List<string> CoolView(string[] filenames)
-    {
-        List<string> result;
-        
-        foreach (string filename in filenames)
-        {
-            string res = "";
-            int id = filename.LastIndexOf('/');
-
-        }
-        return result;
-    }
-    */
     private  void DisplayCatalog() 
     {
         _catalog.text = "Saved Files\n";
@@ -77,9 +60,9 @@ public class FilePanel : MonoBehaviour
         //string path = Application.persistentDataPath;
         string path = Application.dataPath;
         if (Application.isMobilePlatform)
-            path += $"/saves/{_catalog.text}.json";
+            path += $"/saves/{_inputName.text}.json";
         else
-            path += $"/saves/{_catalog.text}.json";
+            path += $"/saves/{_inputName.text}.json";
         
         _panel.SetActive(false);
         _appUI.SetActive(true);
@@ -99,10 +82,11 @@ public class FilePanel : MonoBehaviour
     {
         //string path = Application.persistentDataPath;
         string path = Application.dataPath;
+
         if (Application.isMobilePlatform)
-            path += $"/saves/{_catalog.text}.json";
+            path += $"/saves/{_inputName.text}.json";
         else
-            path += $"/saves/{_catalog.text}.json";
+            path += $"/saves/{_inputName.text}.json";
 
         _panel.SetActive(false);
         _appUI.SetActive(true);

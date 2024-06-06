@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -38,7 +37,6 @@ public class EdgeDragCreating : MonoBehaviour
     }
     private void Start()
     {
-        //_controls.Mouse.Click.performed += _ => EndedClick();
         if (_isMobile)
         {
             _mobileControl.Touch.TouchPress.started += _ => MobileEdgeCreateStart();

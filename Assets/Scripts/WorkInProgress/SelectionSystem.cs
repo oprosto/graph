@@ -1,18 +1,14 @@
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-//[RequireComponent(typeof(VertexFactory))]
 public class SelectionSystem : MonoBehaviour
 {
-    //[SerializeField] private TMP_Text test;
 
     private static PCControls _PCControls;
     private static MobileControls _mobileControl;
     private static Camera _mainCamera = null;
     private static GameObject _lastSelected = null;
-    //private VertexFactory _vertexFactory;
     private static bool _isMobile;
     public static GameObject GetSelect() => _lastSelected;
     
@@ -25,11 +21,9 @@ public class SelectionSystem : MonoBehaviour
         {
             _isMobile = true;
             _mobileControl = new MobileControls();
-            //test.text = "Mobile";
         }   
         else
         {
-            //test.text = "PC";
             _isMobile = false;
             _PCControls = new PCControls();
         }
@@ -48,23 +42,13 @@ public class SelectionSystem : MonoBehaviour
             _PCControls.Mouse.Click.performed += _ => EndedClick();
             _PCControls.KeyBoard.Escape.performed += _ => Exit();
             _PCControls.KeyBoard.Delete.performed += _ => Delete();
-            //_PCControls.KeyBoard.AddVertex.performed += _ => CreateVertex();
         }
-        //_vertexFactory = GetComponent<VertexFactory>();
     }
-    /*
-    private void CreateVertex() 
-    {       
-        _vertexFactory.Create();
-    }
-    */
     private void StartTouch()
     {
         DetectObject(_mobileControl.Touch.TouchPosition.ReadValue<Vector2>());
-        //Debug.Log(_MobileControl.Touch.TouchPosition.ReadValue<Vector2>());
     }
 
-    //бпелеммн рср
     private void Exit()
     {
         Application.Quit();
@@ -109,10 +93,6 @@ public class SelectionSystem : MonoBehaviour
             {
                 target.OnSelect();
                 _lastSelected = hit.collider.gameObject;
-            }
-            else
-            {
-                //Debug.Log("You find a bug in selection system, sir!");
             }
         }
     }

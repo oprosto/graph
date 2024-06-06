@@ -22,66 +22,13 @@ public class EdgeFactory : MonoBehaviour
         }
         AllEvents.OnVertexSelect.RemoveListener(CreateByButton);
     }
-    /*
-    private void CreateForward(Vertex from, Vertex to, double value, Direction direction) 
-    {
-        GameObject edgeObj = Instantiate(_edgePrefab);
-        Edge edge = edgeObj.GetComponent<Edge>();
-        edge.Initialize(from, to, value, direction);
-
-        edgeObj.transform.position = EdgeTools.FindCenter(edge);
-        edgeObj.transform.rotation = Quaternion.Euler(0, 0, EdgeTools.FindAngle(edge));
-
-        edgeObj.GetComponent<BoxCollider2D>().size = new Vector2(EdgeTools.FindLength(edge) - _offset, 0.25f);
-
-        AllEvents.OnEdgeCreated.Invoke(edge);
-    }
-    */
-    /*
-    private void CreateBackward(Vertex from, Vertex to, double value, Direction direction)
-    {
-        GameObject edgeObj = Instantiate(_edgePrefab);
-        Edge edge = edgeObj.GetComponent<Edge>();
-        edge.Initialize(from, to, value, direction);
-
-        edgeObj.transform.position = EdgeTools.FindCenter(edge);
-        edgeObj.transform.rotation = Quaternion.Euler(0, 0, EdgeTools.FindAngle(edge));
-
-        edgeObj.GetComponent<BoxCollider2D>().size = new Vector2(EdgeTools.FindLength(edge) - _offset, 0.5f);
-
-        AllEvents.OnEdgeCreated.Invoke(edge);
-    }
-    */
-    /*
-    private void CreateBoth(Vertex from, Vertex to, double value, Direction direction)
-    {
-        GameObject edgeObj = Instantiate(_edgePrefab);
-        Edge edge = edgeObj.GetComponent<Edge>();
-        edge.Initialize(from, to, value, direction);
-
-        edgeObj.transform.position = EdgeTools.FindCenter(edge);
-        edgeObj.transform.rotation = Quaternion.Euler(0, 0, EdgeTools.FindAngle(edge));
-
-        edgeObj.GetComponent<BoxCollider2D>().size = new Vector2(EdgeTools.FindLength(edge) - _offset, 0.5f);
-
-        AllEvents.OnEdgeCreated.Invoke(edge);
-    }*/
     public void Create(Vertex from, Vertex to, double value = 0, Direction direction = Direction.Forward) 
     {
-        /*
-        switch (direction) 
+        foreach (Edge e in from.GetEdges()) 
         {
-            case Direction.Forward:
-                CreateForward(from, to, value, direction);
-                break;
-            case Direction.Backward:
-                CreateBackward(to, from, value, direction);
-                break;
-            case Direction.None:
-                CreateForward(from, to, value, direction);
-                CreateBackward(to, from, value, direction);
-                break;
-        }*/
+            if (e.GetId() == to.GetId())
+                return;
+        }
         GameObject edgeObj = Instantiate(_edgePrefab);
         Edge edge = edgeObj.GetComponent<Edge>();
         edge.Initialize(from, to, value, direction);

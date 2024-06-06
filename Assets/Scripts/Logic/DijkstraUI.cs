@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -73,9 +71,16 @@ public class DijkstraUI : MonoBehaviour
         }
     }
     public void StartDijkstra() 
-    {
+    { 
         if (_start != null && _end != null)
-            _result.text = _dijkstra.startDijkstra(_start, _end).ToString();            
+        {
+            ClearWay();
+            double res = _dijkstra.startDijkstra(_start, _end);
+            if (res == double.MaxValue)
+                _result.text = "No way";
+            else
+                _result.text = res.ToString();
+        }
     }
     public void ClearWay() 
     {

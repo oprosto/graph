@@ -2,12 +2,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-/*[RequireComponent(typeof(VertexUI))]
-[RequireComponent (typeof(VertexStatementDisplay))]*/
 public class Vertex : MonoBehaviour, ISelectable, IRemovable
 {
-    //private VertexUI _vertexUI;
-    //private VertexStatementDisplay _vertexStatementDisplay;
 
     private string _name;
     private Vector3 _position;
@@ -16,14 +12,6 @@ public class Vertex : MonoBehaviour, ISelectable, IRemovable
     private List<Edge> _inputEdges;
     private int _id;
 
-
-    //private static int _globalId = 0;
-    /*
-    private void Awake()
-    {
-        _vertexUI = GetComponent<VertexUI>();
-        _vertexStatementDisplay = GetComponent<VertexStatementDisplay>();
-    }*/
     public void Initialize(string name, Vector3 position, double value, List<Edge> edges = null, List<Edge> inputEdges = null)
     {
         if (name == null)
@@ -88,7 +76,6 @@ public class RawVertex
         _value = 0;
         _id = 0;
         _edges = new RawEdge[0];
-        //_edge = null;
     }
     public RawVertex(Vertex vertex) 
     {
@@ -104,7 +91,5 @@ public class RawVertex
             _edges[i] = new RawEdge(edge);
             i++;
         }
-        
-        //_edge = new RawEdge(vertex.GetEdges()[0]);
     }
 }
